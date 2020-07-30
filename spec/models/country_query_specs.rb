@@ -22,6 +22,7 @@ RSpec.describe "Practice with ActiveRecord", type: :model do
 
     it "can find records and attributes" do
       #What is the area of Canada?
+      canada = Country.where(code: 'CAN').first
       expect(canada.surfacearea).to eq(9970610.0)
     end
 
@@ -37,21 +38,40 @@ RSpec.describe "Practice with ActiveRecord", type: :model do
 
     it "can find records via equality comparrison" do
       #List the countries in Europe that have a life expectancy of more than 78?
+      age = 78
+      countries = Country
+         .where("lifeexpectancy > ?", age)
+         .where(continent: 'Europe')
       expect(countries.count).to eq(15)
     end
 
     it "can find records via equality comparrison" do
       #List the countries in Europe that have a life expectancy of less than 77?
+      age = 77
+      countries = Country
+          .where("lifeexpectancy < ?", age)
+          .where(continent: 'Europe')
       expect(countries.count).to eq(22)
     end
 
     it "can combine comaparisons" do
       #List the countries in Europe that have a life expectancy of less than 77 and surfacearea less than 50,000 km.?
+      age = 77
+      area = 50000
+      countries = Country
+          .where("lifeexpectancy < ?", age)
+          .where(continent: 'Europe')
+          .where("surfacearea < ?", area)
       expect(countries.count).to eq(7)
     end
 
     it "can find records via equality comparrison" do
       #List the countries that have a population smaller than 30,000,000 and a life expectancy of more than 45?
+      age = 45
+      pop = 30_000_000
+      countries = Country
+        .where("lifeexpectancy > ?", age)
+        .where("population < ?", pop)
       expect(countries.count).to eq(35)
     end
 
