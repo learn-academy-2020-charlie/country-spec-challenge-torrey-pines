@@ -92,7 +92,6 @@ RSpec.describe "Practice with ActiveRecord", type: :model do
         .where("governmentform LIKE '%Republic%'")
       #(are there 122 or 143 countries or ?)
       expect(countries.count).to eq(143)
-
     end
 
     it "can have multiple selects" do
@@ -130,7 +129,6 @@ RSpec.describe "Practice with ActiveRecord", type: :model do
         .order(:surfacearea)
         .first
       expect(country.code).to eq('VAT')
-
     end
 
     it "can use order" do
@@ -139,8 +137,6 @@ RSpec.describe "Practice with ActiveRecord", type: :model do
         .order('surfacearea DESC')
         .first
       expect(country.code).to eq('RUS')
-
-
     end
 
     it "can use order" do
@@ -157,13 +153,11 @@ RSpec.describe "Practice with ActiveRecord", type: :model do
         .order('population DESC')
         .first
       expect(country.code).to eq('CHN')
-
     end
 
     it "can combine order and limit (class)" do
       # Which 10 countries have the lowest life expectancy?
       # Hint: use pluck
-
       countries = Country
       .order(:lifeexpectancy)
       .limit(10)
@@ -175,27 +169,24 @@ RSpec.describe "Practice with ActiveRecord", type: :model do
         expect(countries).to include(country)
       end
     end
-
+    
     it "can combine order and limit" do
       #Which five countries have the lowest population density?
       country_names = Country
-      # ANYTIME YOU NEED A SYMBOL PUT IN SINGLE QUOTES AND REMOVE :
-        .order('population / surfacearea')
-        .limit(5)
-        .pluck(:name)
-
+      .order('population / surfacearea')
+      .limit(5)
+      .pluck(:name)
       expected = ["South Georgia and the South Sandwich Islands", "Bouvet Island", "Antarctica", "British Indian Ocean Territory", "Heard Island and McDonald Islands"]
 
       expected.map do |country|
         expect(country_names).to include(country)
       end
-
     end
 
     it "can combine order and limit" do
       #which five countries have the highest population density?
       country_names = Country
-        .order('population / surfacearea')
+        .order('population / surfacearea DESC')
         .limit(5)
         .pluck(:name)
       expected = ["Macao", "Monaco", "Hong Kong", "Singapore", "Gibraltar"]
@@ -203,7 +194,6 @@ RSpec.describe "Practice with ActiveRecord", type: :model do
       expected.map do |country|
         expect(country_names).to include(country)
       end
-
     end
 
     it "can combine order and limit" do
@@ -235,7 +225,6 @@ RSpec.describe "Practice with ActiveRecord", type: :model do
     it "can simplify 'with' queries" do
       #Of the biggest 10 countries by population, which has the biggest gnp?
       expect(biggest_biggest.name).to eq("United States")
-
     end
 
     it "can simplify 'aggregate' operations (class)" do
